@@ -1,0 +1,611 @@
+/* ═══════════════════════════════════════════════════════════════════
+   7° TOM — style-telas.css
+   Estilos das telas internas (pós-login): Dashboard, Agenda,
+   Atalhos, Badges, Skeletons e componentes compartilhados.
+   Depende das Custom Properties definidas em style.css.
+   Nenhum framework externo.
+═══════════════════════════════════════════════════════════════════ */
+
+
+/* ───────────────────────────────────────────────────────────────────
+   1. LAYOUT INTERNO COMPARTILHADO
+   .inner-page — wrapper de largura máxima para todas as telas
+─────────────────────────────────────────────────────────────────── */
+.inner-page,
+.dash-inner {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: var(--esp-6) var(--esp-5) var(--esp-12);
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-6);
+}
+
+@media (min-width: 600px) {
+  .inner-page,
+  .dash-inner {
+    padding: var(--esp-8) var(--esp-6) var(--esp-16);
+  }
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   2. BADGES
+─────────────────────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--esp-1) var(--esp-3);
+  border-radius: var(--raio-full);
+  font-size: var(--texto-xs);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+  white-space: nowrap;
+  transition:
+    background-color var(--transicao-media),
+    color var(--transicao-media);
+}
+
+.badge-culto {
+  background-color: var(--cor-marca-acento-soft);
+  color: var(--cor-aviso);
+}
+
+.badge-ensaio {
+  background-color: var(--cor-info-bg);
+  color: var(--cor-info);
+}
+
+.badge-evento {
+  background-color: var(--cor-sucesso-bg);
+  color: var(--cor-sucesso);
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   3. SAUDAÇÃO
+─────────────────────────────────────────────────────────────────── */
+.dash-saudacao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-1);
+}
+
+.dash-saudacao-texto {
+  font-size: var(--texto-sm);
+  color: var(--cor-texto-terciario);
+  font-weight: 500;
+  transition: color var(--transicao-media);
+}
+
+.dash-saudacao-nome {
+  font-family: var(--fonte-display);
+  font-size: clamp(var(--texto-2xl), 6vw, var(--texto-3xl));
+  font-weight: 900;
+  color: var(--cor-texto-principal);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  transition: color var(--transicao-media);
+}
+
+.dash-saudacao-papel {
+  font-size: var(--texto-xs);
+  color: var(--cor-marca-primaria);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition: color var(--transicao-media);
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   4. CARDS GENÉRICOS
+─────────────────────────────────────────────────────────────────── */
+.dash-card {
+  background-color: var(--cor-superfice);
+  border: 1px solid var(--cor-borda-sutil);
+  border-radius: var(--raio-xl);
+  padding: var(--esp-6);
+  box-shadow: var(--sombra-sutil);
+  transition:
+    background-color var(--transicao-media),
+    border-color var(--transicao-media),
+    box-shadow var(--transicao-media);
+}
+
+.dash-card.vazio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+  border-style: dashed;
+}
+
+.dash-card-vazio-texto {
+  font-size: var(--texto-sm);
+  color: var(--cor-texto-terciario);
+  transition: color var(--transicao-media);
+}
+
+.dash-card-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--esp-3);
+}
+
+.dash-card-rotulo {
+  font-size: var(--texto-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--cor-texto-terciario);
+  transition: color var(--transicao-media);
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   5. CARD "PRÓXIMO EVENTO"
+─────────────────────────────────────────────────────────────────── */
+.dash-proximo {
+  border-left: 3px solid var(--cor-marca-acento);
+}
+
+.dash-proximo-titulo {
+  font-family: var(--fonte-display);
+  font-size: var(--texto-xl);
+  font-weight: 700;
+  color: var(--cor-texto-principal);
+  line-height: 1.2;
+  margin-bottom: var(--esp-4);
+  transition: color var(--transicao-media);
+}
+
+.dash-proximo-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-3);
+  margin-bottom: var(--esp-4);
+}
+
+.dash-meta-item {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+  font-size: var(--texto-sm);
+  color: var(--cor-texto-secundario);
+  transition: color var(--transicao-media);
+}
+
+.dash-meta-item svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+.dash-meta-sem-escala {
+  color: var(--cor-aviso);
+}
+
+.dash-proximo-acao {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--esp-2);
+  font-size: var(--texto-sm);
+  font-weight: 600;
+  color: var(--cor-marca-primaria);
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: gap var(--transicao-rapida), color var(--transicao-media);
+}
+
+.dash-proximo-acao:hover {
+  gap: var(--esp-3);
+  color: var(--cor-marca-secundaria);
+}
+
+.dash-proximo-acao svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   6. SEÇÕES INTERNAS
+─────────────────────────────────────────────────────────────────── */
+.dash-secao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-4);
+}
+
+.dash-secao-titulo {
+  font-family: var(--fonte-display);
+  font-size: var(--texto-lg);
+  font-weight: 700;
+  color: var(--cor-texto-principal);
+  letter-spacing: -0.01em;
+  transition: color var(--transicao-media);
+}
+
+.dash-vazio {
+  font-size: var(--texto-sm);
+  color: var(--cor-texto-terciario);
+  padding: var(--esp-4) 0;
+  text-align: center;
+  transition: color var(--transicao-media);
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   7. ATALHOS RÁPIDOS
+─────────────────────────────────────────────────────────────────── */
+.atalhos-grade {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--esp-3);
+}
+
+@media (max-width: 360px) {
+  .atalhos-grade {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.atalho-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--esp-2);
+  padding: var(--esp-4) var(--esp-2);
+  min-height: var(--toque-min);
+  background-color: var(--cor-superfice);
+  border: 1px solid var(--cor-borda-sutil);
+  border-radius: var(--raio-lg);
+  cursor: pointer;
+  transition:
+    background-color var(--transicao-rapida),
+    border-color var(--transicao-rapida),
+    box-shadow var(--transicao-rapida),
+    transform var(--transicao-rapida);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.atalho-btn:hover {
+  background-color: var(--cor-hover);
+  border-color: var(--cor-marca-secundaria);
+  box-shadow: var(--sombra-sutil);
+}
+
+.atalho-btn:active {
+  transform: scale(0.96);
+}
+
+.atalho-icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: var(--cor-marca-acento-soft);
+  border-radius: var(--raio-md);
+  color: var(--cor-marca-primaria);
+  transition:
+    background-color var(--transicao-media),
+    color var(--transicao-media);
+}
+
+.tema-escuro .atalho-icone {
+  background-color: rgba(129, 140, 248, 0.15);
+  color: var(--cor-marca-primaria);
+}
+
+.atalho-icone svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.atalho-label {
+  font-size: var(--texto-xs);
+  font-weight: 600;
+  color: var(--cor-texto-secundario);
+  text-align: center;
+  letter-spacing: 0.01em;
+  transition: color var(--transicao-media);
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   8. LISTA DE AGENDA SEMANAL
+─────────────────────────────────────────────────────────────────── */
+.agenda-lista {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--cor-borda-sutil);
+  border-radius: var(--raio-lg);
+  overflow: hidden;
+  background-color: var(--cor-superfice);
+  box-shadow: var(--sombra-sutil);
+  transition:
+    background-color var(--transicao-media),
+    border-color var(--transicao-media);
+}
+
+.agenda-item {
+  display: grid;
+  grid-template-columns: 52px 1fr auto;
+  align-items: center;
+  gap: var(--esp-4);
+  padding: var(--esp-4) var(--esp-5);
+  border-bottom: 1px solid var(--cor-borda-sutil);
+  transition:
+    background-color var(--transicao-rapida),
+    border-color var(--transicao-media);
+}
+
+.agenda-item:last-child {
+  border-bottom: none;
+}
+
+.agenda-item:hover {
+  background-color: var(--cor-hover);
+}
+
+/* Destaque para o evento de hoje */
+.agenda-item-hoje {
+  background-color: var(--cor-marca-acento-soft);
+  border-left: 3px solid var(--cor-marca-acento);
+}
+
+.tema-escuro .agenda-item-hoje {
+  background-color: rgba(245, 158, 11, 0.08);
+}
+
+.agenda-item-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+
+.agenda-dia-semana {
+  font-size: var(--texto-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--cor-texto-terciario);
+  transition: color var(--transicao-media);
+}
+
+.agenda-dia-num {
+  font-family: var(--fonte-display);
+  font-size: var(--texto-xl);
+  font-weight: 900;
+  color: var(--cor-texto-principal);
+  line-height: 1;
+  transition: color var(--transicao-media);
+}
+
+.agenda-item-hoje .agenda-dia-num {
+  color: var(--cor-marca-acento);
+}
+
+.agenda-item-corpo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-1);
+  min-width: 0;
+}
+
+.agenda-item-titulo {
+  font-size: var(--texto-sm);
+  font-weight: 600;
+  color: var(--cor-texto-principal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color var(--transicao-media);
+}
+
+.agenda-item-hora {
+  font-size: var(--texto-xs);
+  color: var(--cor-texto-terciario);
+  font-variant-numeric: tabular-nums;
+  transition: color var(--transicao-media);
+}
+
+.agenda-item-direita {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--esp-2);
+}
+
+.agenda-item-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  color: var(--cor-texto-terciario);
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--raio-full);
+  transition:
+    background-color var(--transicao-rapida),
+    color var(--transicao-rapida);
+}
+
+.agenda-item-link:hover {
+  background-color: var(--cor-hover);
+  color: var(--cor-marca-primaria);
+}
+
+.agenda-item-link svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   9. ESTADO DE CARREGAMENTO (Skeletons)
+─────────────────────────────────────────────────────────────────── */
+.dash-carregando {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: var(--esp-6) var(--esp-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-5);
+}
+
+.dash-skeleton {
+  border-radius: var(--raio-lg);
+  background: linear-gradient(
+    90deg,
+    var(--cor-fundo-alt) 25%,
+    var(--cor-borda-sutil) 50%,
+    var(--cor-fundo-alt) 75%
+  );
+  background-size: 200% 100%;
+  animation: esqueleto 1.4s ease infinite;
+}
+
+@keyframes esqueleto {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dash-skeleton { animation: none; background: var(--cor-fundo-alt); }
+}
+
+.dash-skeleton-saudacao { height: 80px; }
+.dash-skeleton-card     { height: 140px; }
+.dash-skeleton-lista    { height: 220px; }
+
+
+/* ───────────────────────────────────────────────────────────────────
+   10. BOTÃO LINK (ação textual)
+─────────────────────────────────────────────────────────────────── */
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--esp-2);
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--fonte-corpo);
+  font-size: inherit;
+  font-weight: 600;
+  color: var(--cor-marca-primaria);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: transparent;
+  transition:
+    color var(--transicao-media),
+    text-decoration-color var(--transicao-rapida);
+}
+
+.btn-link:hover {
+  text-decoration-color: currentColor;
+  color: var(--cor-marca-secundaria);
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   11. ESTADO DE ERRO NA TELA
+─────────────────────────────────────────────────────────────────── */
+.dash-erro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--esp-4);
+  padding: var(--esp-8);
+  text-align: center;
+  color: var(--cor-texto-secundario);
+  transition: color var(--transicao-media);
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   12. AVISO DE MÚSICA REPETIDA
+─────────────────────────────────────────────────────────────────── */
+.dash-aviso-repeticao {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3);
+  padding: var(--esp-4) var(--esp-5);
+  background-color: var(--cor-aviso-bg);
+  border: 1px solid var(--cor-aviso);
+  border-radius: var(--raio-md);
+  font-size: var(--texto-sm);
+  color: var(--cor-aviso);
+  font-weight: 500;
+  transition:
+    background-color var(--transicao-media),
+    border-color var(--transicao-media),
+    color var(--transicao-media);
+}
+
+.dash-aviso-repeticao[hidden] {
+  display: none;
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   13. IMPRESSÃO — Dashboard
+─────────────────────────────────────────────────────────────────── */
+@media print {
+  .dash-saudacao,
+  .atalhos-grade,
+  .agenda-item-link,
+  .dash-proximo-acao,
+  .dash-carregando {
+    display: none !important;
+  }
+
+  .agenda-lista {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+
+  .agenda-item {
+    break-inside: avoid;
+  }
+
+  .badge {
+    border: 1px solid currentColor;
+    background: transparent !important;
+  }
+}
