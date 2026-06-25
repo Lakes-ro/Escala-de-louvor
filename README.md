@@ -1,1 +1,0 @@
-# Escala-de-louvor
