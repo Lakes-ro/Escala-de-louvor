@@ -1,0 +1,1759 @@
+/* ═══════════════════════════════════════════════════════════════════
+   7° TOM — style-componentes.css
+   Componentes reutilizáveis e estilos das telas internas:
+   Cifra · Escala · Músicas · Equipe · Eventos · Modais · Formulários
+   Depende das Custom Properties de style.css
+   Nenhum framework externo.
+═══════════════════════════════════════════════════════════════════ */
+
+
+/* ───────────────────────────────────────────────────────────────────
+   1. BOTÕES SECUNDÁRIOS E DE AÇÃO PEQUENA
+─────────────────────────────────────────────────────────────────── */
+.btn-secundario {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--esp-2);
+  min-height: var(--toque-min);
+  padding: var(--esp-3) var(--esp-5);
+  background-color: transparent;
+  color: var(--cor-texto-secundario);
+  border: 1.5px solid var(--cor-borda);
+  border-radius: var(--raio-md);
+  font-size: var(--texto-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color var(--transicao-rapida),
+    border-color var(--transicao-rapida),
+    color var(--transicao-media);
+}
+
+.btn-secundario:hover {
+  background-color: var(--cor-hover);
+  border-color: var(--cor-marca-secundaria);
+  color: var(--cor-texto-principal);
+}
+
+.btn-acao-pequeno {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--esp-2);
+  min-height: 36px;
+  padding: var(--esp-2) var(--esp-4);
+  background-color: var(--cor-fundo-alt);
+  color: var(--cor-texto-secundario);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-md);
+  font-size: var(--texto-xs);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color var(--transicao-rapida),
+    color var(--transicao-rapida);
+}
+
+.btn-acao-pequeno:hover {
+  background-color: var(--cor-hover);
+  color: var(--cor-marca-primaria);
+}
+
+.btn-acao-pequeno svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.btn-icone-perigoso {
+  color: var(--cor-erro);
+}
+
+.btn-icone-ativo {
+  color: var(--cor-marca-primaria);
+  background-color: var(--cor-hover);
+}
+
+.btn-voltar {
+  color: var(--cor-texto-secundario);
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   2. CAMPOS DE FORMULÁRIO ADICIONAIS
+─────────────────────────────────────────────────────────────────── */
+.campo-textarea {
+  height: auto;
+  resize: vertical;
+  padding-top: var(--esp-3);
+  padding-bottom: var(--esp-3);
+  line-height: 1.6;
+  font-family: var(--fonte-corpo);
+  min-height: 100px;
+}
+
+.campo-input-com-icone {
+  padding-left: var(--esp-10);
+}
+
+.campo-icone-esquerda {
+  right: auto;
+  left: var(--esp-4);
+}
+
+.campo-icone-esquerda svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Checkboxes */
+.checkbox-grupo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-2) var(--esp-4);
+  padding: var(--esp-2) 0;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+  font-size: var(--texto-sm);
+  color: var(--cor-texto-secundario);
+  cursor: pointer;
+  min-height: var(--toque-min);
+  padding: var(--esp-2) var(--esp-3);
+  border-radius: var(--raio-sm);
+  transition: background-color var(--transicao-rapida);
+}
+
+.checkbox-label:hover {
+  background-color: var(--cor-hover);
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--cor-marca-primaria);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.campo-label-toggle {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: var(--texto-sm);
+  font-weight: 500;
+  color: var(--cor-texto-secundario);
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   3. MODAIS
+─────────────────────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  background-color: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+  animation: modal-fundo-entrar var(--transicao-media) ease;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+@keyframes modal-fundo-entrar {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal-caixa {
+  width: 100%;
+  max-width: 560px;
+  max-height: 92dvh;
+  overflow-y: auto;
+  background-color: var(--cor-superfice);
+  border-radius: var(--raio-xl) var(--raio-xl) 0 0;
+  padding: var(--esp-6) var(--esp-6) var(--esp-10);
+  box-shadow: var(--sombra-forte);
+  animation: modal-subir var(--transicao-media) ease;
+  transition: background-color var(--transicao-media);
+  overscroll-behavior: contain;
+}
+
+@keyframes modal-subir {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@media (min-width: 600px) {
+  .modal-overlay {
+    align-items: center;
+    padding: var(--esp-5);
+  }
+  .modal-caixa {
+    border-radius: var(--raio-xl);
+  }
+}
+
+.modal-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--esp-6);
+}
+
+.modal-cabecalho h2 {
+  font-family: var(--fonte-display);
+  font-size: var(--texto-xl);
+  font-weight: 700;
+  color: var(--cor-texto-principal);
+  transition: color var(--transicao-media);
+}
+
+.modal-linha-dupla {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--esp-4);
+}
+
+@media (max-width: 400px) {
+  .modal-linha-dupla { grid-template-columns: 1fr; }
+}
+
+.modal-rodape {
+  display: flex;
+  gap: var(--esp-3);
+  justify-content: flex-end;
+  margin-top: var(--esp-6);
+  padding-top: var(--esp-5);
+  border-top: 1px solid var(--cor-borda-sutil);
+  transition: border-color var(--transicao-media);
+}
+
+@media (max-width: 400px) {
+  .modal-rodape { flex-direction: column-reverse; }
+  .modal-rodape .btn-primario,
+  .modal-rodape .btn-secundario { width: 100%; }
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   4. CABEÇALHO DE TELA (Escala, Cifra)
+─────────────────────────────────────────────────────────────────── */
+.escala-cabecalho,
+.cifra-header {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-4);
+  padding-bottom: var(--esp-5);
+  border-bottom: 1px solid var(--cor-borda-sutil);
+  transition: border-color var(--transicao-media);
+}
+
+.escala-cab-info,
+.cifra-header-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.escala-cab-label {
+  font-size: var(--texto-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--cor-texto-terciario);
+  display: block;
+  margin-bottom: var(--esp-1);
+  transition: color var(--transicao-media);
+}
+
+.escala-cab-titulo,
+.cifra-titulo {
+  font-family: var(--fonte-display);
+  font-size: clamp(var(--texto-lg), 4vw, var(--texto-2xl));
+  font-weight: 900;
+  color: var(--cor-texto-principal);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color var(--transicao-media);
+}
+
+.escala-cab-meta {
+  font-size: var(--texto-sm);
+  color: var(--cor-texto-terciario);
+  margin-top: var(--esp-1);
+  transition: color var(--transicao-media);
+}
+
+.cifra-subtitulo {
+  font-size: var(--texto-sm);
+  color: var(--cor-texto-terciario);
+  margin-top: var(--esp-1);
+  transition: color var(--transicao-media);
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   5. ALERTAS DE ESCALA
+─────────────────────────────────────────────────────────────────── */
+.escala-alerta {
+  display: flex;
+  gap: var(--esp-3);
+  padding: var(--esp-4) var(--esp-5);
+  background-color: var(--cor-aviso-bg);
+  border: 1px solid var(--cor-aviso);
+  border-radius: var(--raio-md);
+  font-size: var(--texto-sm);
+  color: var(--cor-aviso);
+  transition:
+    background-color var(--transicao-media),
+    border-color var(--transicao-media);
+}
+
+.escala-alerta svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.escala-alerta-lista {
+  list-style: disc;
+  padding-left: var(--esp-5);
+  margin-top: var(--esp-2);
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   6. SEÇÕES DA ESCALA
+─────────────────────────────────────────────────────────────────── */
+.escala-secao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-4);
+}
+
+.escala-secao-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-3);
+}
+
+.escala-secao-titulo {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3);
+  font-family: var(--fonte-display);
+  font-size: var(--texto-lg);
+  font-weight: 700;
+  color: var(--cor-texto-principal);
+  transition: color var(--transicao-media);
+}
+
+.escala-secao-titulo svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  color: var(--cor-marca-primaria);
+}
+
+.escala-secao-contagem {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 var(--esp-2);
+  background-color: var(--cor-fundo-alt);
+  border-radius: var(--raio-full);
+  font-size: var(--texto-xs);
+  font-weight: 700;
+  color: var(--cor-texto-terciario);
+  font-family: var(--fonte-corpo);
+  transition:
+    background-color var(--transicao-media),
+    color var(--transicao-media);
+}
+
+.escala-vazio {
+  font-size: var(--texto-sm);
+  color: var(--cor-texto-terciario);
+  padding: var(--esp-5) 0;
+  text-align: center;
+  transition: color var(--transicao-media);
+}
+
+/* Lista de músicas da escala */
+.escala-musicas-lista {
+  list-style: none;
+  border: 1px solid var(--cor-borda-sutil);
+  border-radius: var(--raio-lg);
+  overflow: hidden;
+  background-color: var(--cor-superfice);
+  transition:
+    background-color var(--transicao-media),
+    border-color var(--transicao-media);
+}
+
+.escala-musica-item {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  align-items: center;
+  gap: var(--esp-3);
+  padding: var(--esp-4) var(--esp-5);
+  border-bottom: 1px solid var(--cor-borda-sutil);
+  transition:
+    background-color var(--transicao-rapida),
+    border-color var(--transicao-media);
+}
+
+.escala-musica-item:last-child { border-bottom: none; }
+.escala-musica-item:hover { background-color: var(--cor-hover); }
+
+.escala-musica-num {
+  font-family: var(--fonte-display);
+  font-size: var(--texto-lg);
+  font-weight: 700;
+  color: var(--cor-texto-terciario);
+  text-align: center;
+  line-height: 1;
+  transition: color var(--transicao-media);
+}
+
+.escala-musica-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.escala-musica-titulo {
+  font-size: var(--texto-sm);
+  font-weight: 600;
+  color: var(--cor-texto-principal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color var(--transicao-media);
+}
+
+.escala-musica-autor {
+  font-size: var(--texto-xs);
+  color: var(--cor-texto-terciario);
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+  transition: color var(--transicao-media);
+}
+
+.musica-tom {
+  display: inline-flex;
+  padding: 1px var(--esp-2);
+  background-color: var(--cor-marca-acento-soft);
+  color: var(--cor-aviso);
+  border-radius: var(--raio-sm);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition:
+    background-color var(--transicao-media),
+    color var(--transicao-media);
+}
+
+.musica-tom-destaque {
+  font-size: var(--texto-sm);
+  padding: var(--esp-1) var(--esp-3);
+}
+
+.escala-musica-acoes {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+}
+
+.escala-btn-cifra {
+  font-size: var(--texto-xs);
+}
+
+/* Membros */
+.escala-membros-lista {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-3);
+}
+
+.escala-membro-item {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3);
+  padding: var(--esp-3) var(--esp-4);
+  background-color: var(--cor-superfice);
+  border: 1px solid var(--cor-borda-sutil);
+  border-radius: var(--raio-lg);
+  min-width: 0;
+  flex: 1 1 200px;
+  transition:
+    background-color var(--transicao-media),
+    border-color var(--transicao-media);
+}
+
+.membro-avatar {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: var(--raio-full);
+  background-color: var(--cor-marca-acento-soft);
+  color: var(--cor-marca-primaria);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--texto-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition:
+    background-color var(--transicao-media),
+    color var(--transicao-media);
+}
+
+.membro-avatar-lg {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  font-size: var(--texto-sm);
+}
+
+.membro-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.membro-nome,
+.membro-card-nome {
+  font-size: var(--texto-sm);
+  font-weight: 600;
+  color: var(--cor-texto-principal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color var(--transicao-media);
+}
+
+.membro-instrumento,
+.membro-card-instrs {
+  font-size: var(--texto-xs);
+  color: var(--cor-texto-terciario);
+  transition: color var(--transicao-media);
+}
+
+/* Observações */
+.escala-obs-texto {
+  font-size: var(--texto-sm);
+  color: var(--cor-texto-secundario);
+  line-height: 1.7;
+  white-space: pre-wrap;
+  padding: var(--esp-4) var(--esp-5);
+  background-color: var(--cor-fundo-alt);
+  border-radius: var(--raio-md);
+  transition:
+    background-color var(--transicao-media),
+    color var(--transicao-media);
+}
+
+.btn-salvar-obs {
+  align-self: flex-start;
+  width: auto;
+  min-width: 160px;
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   7. LEITURA DE CIFRA
+─────────────────────────────────────────────────────────────────── */
+.cifra-tela-inner {
+  display: flex;
+  flex-direction: column;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 var(--esp-4) var(--esp-16);
+  gap: var(--esp-4);
+}
+
+/* Barra de controles */
+.cifra-controles {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--esp-2);
+  padding: var(--esp-3) var(--esp-4);
+  background-color: var(--cor-superfice);
+  border: 1px solid var(--cor-borda-sutil);
+  border-radius: var(--raio-lg);
+  box-shadow: var(--sombra-sutil);
+  position: sticky;
+  top: 56px;
+  z-index: var(--z-card);
+  transition:
+    background-color var(--transicao-media),
+    border-color var(--transicao-media);
+}
+
+.cifra-ctrl-grupo {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-1);
+}
+
+.cifra-ctrl-divisor {
+  width: 1px;
+  height: 24px;
+  background-color: var(--cor-borda-sutil);
+  margin: 0 var(--esp-1);
+  flex-shrink: 0;
+  transition: background-color var(--transicao-media);
+}
+
+.btn-ctrl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--toque-min);
+  height: var(--toque-min);
+  padding: 0 var(--esp-3);
+  background-color: var(--cor-fundo-alt);
+  color: var(--cor-texto-secundario);
+  border: 1px solid var(--cor-borda-sutil);
+  border-radius: var(--raio-md);
+  font-size: var(--texto-sm);
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color var(--transicao-rapida),
+    color var(--transicao-rapida),
+    border-color var(--transicao-rapida);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-ctrl:hover {
+  background-color: var(--cor-hover);
+  color: var(--cor-marca-primaria);
+  border-color: var(--cor-marca-secundaria);
+}
+
+.btn-ctrl-toggle {
+  font-size: var(--texto-xs);
+  letter-spacing: 0.03em;
+}
+
+.btn-ctrl-toggle-ativo {
+  background-color: var(--cor-marca-primaria);
+  color: var(--cor-texto-inverso);
+  border-color: var(--cor-marca-primaria);
+}
+
+.btn-ctrl-fonte-a {
+  font-family: var(--fonte-display);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.btn-ctrl-fonte-a-pequeno { font-size: 12px; }
+.btn-ctrl-fonte-a-grande  { font-size: 18px; }
+
+.cifra-tom-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+}
+
+.cifra-tom-label {
+  font-size: var(--texto-xs);
+  font-weight: 600;
+  color: var(--cor-texto-terciario);
+  white-space: nowrap;
+  transition: color var(--transicao-media);
+}
+
+.cifra-tom-select {
+  height: var(--toque-min);
+  padding: 0 var(--esp-3);
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto-principal);
+  border: 1.5px solid var(--cor-borda);
+  border-radius: var(--raio-md);
+  font-size: var(--texto-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color var(--transicao-media),
+    color var(--transicao-media),
+    border-color var(--transicao-rapida);
+  -webkit-appearance: none;
+  appearance: none;
+  min-width: 80px;
+}
+
+.cifra-tom-select:focus {
+  border-color: var(--cor-marca-primaria);
+  outline: none;
+}
+
+/* Sugestão de capo */
+.cifra-capo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--esp-2) var(--esp-4);
+  padding: var(--esp-3) var(--esp-4);
+  background-color: var(--cor-info-bg);
+  border-radius: var(--raio-md);
+  font-size: var(--texto-xs);
+  color: var(--cor-info);
+  transition:
+    background-color var(--transicao-media),
+    color var(--transicao-media);
+}
+
+.cifra-capo-titulo {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.cifra-capo-item {
+  white-space: nowrap;
+}
+
+/* Corpo da cifra */
+.cifra-visor {
+  padding: var(--esp-4) var(--esp-2);
+}
+
+.cifra-corpo {
+  display: flex;
+  flex-direction: column;
+}
+
+.cifra-linha {
+  display: block;
+  line-height: 1.5;
+  font-family: var(--fonte-corpo);
+  white-space: pre-wrap;
+  color: var(--cor-texto-principal);
+  transition: color var(--transicao-media);
+}
+
+.cifra-linha-acorde {
+  color: var(--cor-marca-primaria);
+  letter-spacing: 0.06em;
+  font-weight: 500;
+}
+
+.cifra-linha-letra {
+  color: var(--cor-texto-principal);
+}
+
+.cifra-linha-vazia {
+  height: 0.75em;
+}
+
+.cifra-secao {
+  display: inline-block;
+  margin-top: var(--esp-5);
+  margin-bottom: var(--esp-2);
+  font-size: var(--texto-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--cor-marca-acento);
+  border-bottom: 1px solid var(--cor-marca-acento);
+  padding-bottom: 2px;
+  transition: color var(--transicao-media), border-color var(--transicao-media);
+}
+
+.cifra-acorde {
+  color: var(--cor-marca-primaria);
+  font-weight: 700;
+  cursor: default;
+  border-radius: 3px;
+  padding: 0 2px;
+  transition:
+    background-color var(--transicao-rapida),
+    color var(--transicao-media);
+}
+
+.cifra-acorde:hover {
+  background-color: var(--cor-hover);
+}
+
+.cifra-vazia {
+  color: var(--cor-texto-terciario);
+  font-style: italic;
+  padding: var(--esp-8) 0;
+  text-align: center;
+}
+
+/* Visor PDF */
+.cifra-pdf-visor {
+  border-radius: var(--raio-lg);
+  overflow: hidden;
+  border: 1px solid var(--cor-borda-sutil);
+}
+
+.cifra-pdf-frame {
+  width: 100%;
+  height: 80dvh;
+  border: none;
+  display: block;
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   8. CATÁLOGO DE MÚSICAS
+─────────────────────────────────────────────────────────────────── */
+.musicas-barra {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3);
+  flex-wrap: wrap;
+}
+
+.musicas-busca-wrapper {
+  flex: 1;
+  min-width: 180px;
+}
+
+.musicas-lista {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--cor-borda-sutil);
+  border-radius: var(--raio-lg);
+  overflow: hidden;
+  background-color: var(--cor-superfice);
+  box-shadow: var(--sombra-sutil);
+  transition:
+    background-color var(--transicao-media),
+    border-color var(--transicao-media);
+}
+
+.musica-card {
+  padding: var(--esp-4) var(--esp-5);
+  border-bottom: 1px solid var(--cor-borda-sutil);
+  transition:
+    background-color var(--transicao-rapida),
+    border-color var(--transicao-media);
+}
+
+.musica-card:last-child { border-bottom: none; }
+.musica-card:hover { background-color: var(--cor-hover); }
+
+.musica-card-corpo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--esp-4);
+  margin-bottom: var(--esp-3);
+}
+
+.musica-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-1);
+  min-width: 0;
+}
+
+.musica-card-titulo {
+  font-size: var(--texto-md);
+  font-weight: 600;
+  color: var(--cor-texto-principal);
+  transition: color var(--transicao-media);
+}
+
+.musica-card-autor {
+  font-size: var(--texto-xs);
+  color: var(--cor-texto-terciario);
+  transition: color var(--transicao-media);
+}
+
+.musica-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-1);
+  margin-top: var(--esp-1);
+}
+
+.musica-tag {
+  display: inline-flex;
+  padding: 1px var(--esp-2);
+  background-color: var(--cor-fundo-alt);
+  color: var(--cor-texto-terciario);
+  border-radius: var(--raio-full);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  transition:
+    background-color var(--transicao-media),
+    color var(--transicao-media);
+}
+
+.musica-card-acoes {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3);
+}
+
+.btn-ver-cifra {
+  font-size: var(--texto-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--esp-1);
+}
+
+.btn-ver-cifra svg {
+  width: 12px;
+  height: 12px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   9. EQUIPE
+─────────────────────────────────────────────────────────────────── */
+.membros-lista {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--cor-borda-sutil);
+  border-radius: var(--raio-lg);
+  overflow: hidden;
+  background-color: var(--cor-superfice);
+  box-shadow: var(--sombra-sutil);
+  transition:
+    background-color var(--transicao-media),
+    border-color var(--transicao-media);
+}
+
+.membro-card {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-4);
+  padding: var(--esp-4) var(--esp-5);
+  border-bottom: 1px solid var(--cor-borda-sutil);
+  transition:
+    background-color var(--transicao-rapida),
+    border-color var(--transicao-media);
+}
+
+.membro-card:last-child { border-bottom: none; }
+.membro-card:hover { background-color: var(--cor-hover); }
+
+.membro-card-inativo { opacity: 0.55; }
+
+.membro-card-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-1);
+}
+
+.membro-card-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-1);
+  margin-top: var(--esp-1);
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   10. EVENTOS
+─────────────────────────────────────────────────────────────────── */
+.evento-card {
+  background-color: var(--cor-superfice);
+  border: 1px solid var(--cor-borda-sutil);
+  border-radius: var(--raio-xl);
+  padding: var(--esp-6);
+  box-shadow: var(--sombra-sutil);
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-4);
+  transition:
+    background-color var(--transicao-media),
+    border-color var(--transicao-media);
+}
+
+.evento-card-encerrado {
+  opacity: 0.7;
+  border-style: dashed;
+}
+
+.evento-card-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-3);
+}
+
+.evento-confirmados {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+  font-size: var(--texto-xs);
+  font-weight: 600;
+  color: var(--cor-texto-terciario);
+  transition: color var(--transicao-media);
+}
+
+.evento-confirmados svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.evento-titulo {
+  font-family: var(--fonte-display);
+  font-size: var(--texto-xl);
+  font-weight: 700;
+  color: var(--cor-texto-principal);
+  line-height: 1.2;
+  transition: color var(--transicao-media);
+}
+
+.evento-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-3);
+}
+
+.evento-descricao {
+  font-size: var(--texto-sm);
+  color: var(--cor-texto-secundario);
+  line-height: 1.6;
+  transition: color var(--transicao-media);
+}
+
+/* Botões de resposta */
+.evento-resposta-area {
+  border-top: 1px solid var(--cor-borda-sutil);
+  padding-top: var(--esp-4);
+  transition: border-color var(--transicao-media);
+}
+
+.evento-respostas-btns {
+  display: flex;
+  gap: var(--esp-2);
+  flex-wrap: wrap;
+}
+
+.btn-resposta {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+  min-height: var(--toque-min);
+  padding: var(--esp-2) var(--esp-4);
+  border-radius: var(--raio-md);
+  border: 1.5px solid var(--cor-borda);
+  background-color: var(--cor-fundo-alt);
+  color: var(--cor-texto-secundario);
+  font-size: var(--texto-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color var(--transicao-rapida),
+    border-color var(--transicao-rapida),
+    color var(--transicao-rapida);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-resposta svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.btn-resposta:hover { background-color: var(--cor-hover); }
+
+.btn-resposta-ativo.resposta-confirmado {
+  background-color: var(--cor-sucesso-bg);
+  border-color: var(--cor-sucesso);
+  color: var(--cor-sucesso);
+}
+
+.btn-resposta-ativo.resposta-talvez {
+  background-color: var(--cor-info-bg);
+  border-color: var(--cor-info);
+  color: var(--cor-info);
+}
+
+.btn-resposta-ativo.resposta-nao {
+  background-color: var(--cor-erro-bg);
+  border-color: var(--cor-erro);
+  color: var(--cor-erro);
+}
+
+.evento-resposta-confirmada {
+  margin-top: var(--esp-3);
+  font-size: var(--texto-xs);
+  color: var(--cor-sucesso);
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+  transition: color var(--transicao-media);
+}
+
+.evento-resposta-confirmada svg {
+  width: 12px;
+  height: 12px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.5;
+}
+
+.evento-encerrado {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+  font-size: var(--texto-xs);
+  font-weight: 600;
+  color: var(--cor-texto-terciario);
+  transition: color var(--transicao-media);
+}
+
+.evento-encerrado svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+.evento-detalhes-respostas {
+  border-top: 1px solid var(--cor-borda-sutil);
+  padding-top: var(--esp-3);
+  transition: border-color var(--transicao-media);
+}
+
+.evento-respostas-summary {
+  font-size: var(--texto-xs);
+  font-weight: 600;
+  color: var(--cor-marca-primaria);
+  cursor: pointer;
+  list-style: none;
+  padding: var(--esp-2) 0;
+  min-height: var(--toque-min);
+  display: flex;
+  align-items: center;
+}
+
+.evento-respostas-lista {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-2);
+  padding: var(--esp-3) 0;
+}
+
+.evento-resposta-item {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--esp-2);
+  font-size: var(--texto-xs);
+}
+
+.evento-resposta-cpf {
+  font-weight: 600;
+  color: var(--cor-texto-secundario);
+  font-variant-numeric: tabular-nums;
+  transition: color var(--transicao-media);
+}
+
+.evento-resposta-msg {
+  color: var(--cor-texto-terciario);
+  font-style: italic;
+  transition: color var(--transicao-media);
+}
+
+.evento-acoes-gestor {
+  padding-top: var(--esp-3);
+  border-top: 1px solid var(--cor-borda-sutil);
+  transition: border-color var(--transicao-media);
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   11. IMPRESSÃO — Cifra e Escala
+─────────────────────────────────────────────────────────────────── */
+@media print {
+  .cifra-controles,
+  .cifra-capo,
+  .cifra-pdf-visor,
+  .escala-cabecalho .btn-icone,
+  .escala-btn-cifra,
+  .escala-btn-remover-musica,
+  .btn-alocar-membro,
+  .btn-adicionar-musica,
+  .btn-salvar-obs,
+  .evento-resposta-area,
+  .evento-acoes-gestor,
+  .evento-detalhes-respostas,
+  .modal-overlay {
+    display: none !important;
+  }
+
+  .cifra-tela-inner,
+  .escala-inner {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .cifra-linha-acorde { color: #333 !important; }
+  .cifra-acorde { color: #333 !important; }
+
+  .escala-musicas-lista,
+  .escala-membros-lista,
+  .agenda-lista {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+  }
+
+  .escala-musica-item,
+  .membro-card,
+  .agenda-item { break-inside: avoid; }
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   12. BAÚ DE ESCALAS (tela-escalas.js)
+─────────────────────────────────────────────────────────────────── */
+.escalas-barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-3);
+  flex-wrap: wrap;
+}
+
+.filtro-grupo {
+  display: flex;
+  gap: var(--esp-2);
+  flex-wrap: wrap;
+}
+
+.filtro-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: var(--esp-2) var(--esp-4);
+  background-color: var(--cor-fundo-alt);
+  color: var(--cor-texto-secundario);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-full);
+  font-size: var(--texto-xs);
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color var(--transicao-rapida),
+    border-color var(--transicao-rapida),
+    color var(--transicao-rapida);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.filtro-btn:hover {
+  background-color: var(--cor-hover);
+}
+
+.filtro-btn-ativo {
+  background-color: var(--cor-marca-primaria);
+  border-color: var(--cor-marca-primaria);
+  color: var(--cor-texto-inverso);
+}
+
+.escalas-lista {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--cor-borda-sutil);
+  border-radius: var(--raio-lg);
+  overflow: hidden;
+  background-color: var(--cor-superfice);
+  box-shadow: var(--sombra-sutil);
+  transition:
+    background-color var(--transicao-media),
+    border-color var(--transicao-media);
+}
+
+.escala-lista-item {
+  display: grid;
+  grid-template-columns: 52px 1fr auto;
+  align-items: center;
+  gap: var(--esp-4);
+  padding: var(--esp-4) var(--esp-5);
+  border-bottom: 1px solid var(--cor-borda-sutil);
+  transition:
+    background-color var(--transicao-rapida),
+    border-color var(--transicao-media),
+    opacity var(--transicao-media);
+}
+
+.escala-lista-item:last-child { border-bottom: none; }
+.escala-lista-item:hover { background-color: var(--cor-hover); }
+
+.escala-item-hoje {
+  background-color: var(--cor-marca-acento-soft);
+  border-left: 3px solid var(--cor-marca-acento);
+}
+
+.tema-escuro .escala-item-hoje {
+  background-color: rgba(245, 158, 11, 0.08);
+}
+
+.escala-item-passado {
+  opacity: 0.65;
+}
+
+.escala-item-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.escala-item-mes {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--cor-texto-terciario);
+  transition: color var(--transicao-media);
+}
+
+.escala-item-corpo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-1);
+  min-width: 0;
+}
+
+.escala-item-topo {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+  flex-wrap: wrap;
+}
+
+.badge-hoje {
+  background-color: var(--cor-marca-acento);
+  color: #ffffff;
+}
+
+.escala-item-titulo {
+  font-size: var(--texto-sm);
+  font-weight: 600;
+  color: var(--cor-texto-principal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color var(--transicao-media);
+}
+
+.escala-item-hora {
+  font-size: var(--texto-xs);
+  color: var(--cor-texto-terciario);
+  font-variant-numeric: tabular-nums;
+  transition: color var(--transicao-media);
+}
+
+.escala-item-musicas {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+  font-size: var(--texto-xs);
+  color: var(--cor-sucesso);
+  font-weight: 500;
+  margin-top: var(--esp-1);
+  transition: color var(--transicao-media);
+}
+
+.escala-item-musicas svg {
+  width: 12px;
+  height: 12px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.escala-item-pendente {
+  font-size: var(--texto-xs);
+  color: var(--cor-aviso);
+  font-weight: 500;
+  margin-top: var(--esp-1);
+  transition: color var(--transicao-media);
+}
+
+.escala-item-acao {
+  display: flex;
+  align-items: center;
+}
+
+.escala-item-btn-criar {
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   13. PERFIL DO USUÁRIO (tela-perfil.js)
+─────────────────────────────────────────────────────────────────── */
+.perfil-hero {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-5);
+  padding: var(--esp-2) 0;
+}
+
+.perfil-avatar {
+  width: 72px;
+  height: 72px;
+  min-width: 72px;
+  border-radius: var(--raio-full);
+  background: linear-gradient(135deg, var(--cor-marca-primaria), var(--cor-marca-secundaria));
+  color: var(--cor-texto-inverso);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--fonte-display);
+  font-size: var(--texto-2xl);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  box-shadow: var(--sombra-media);
+  transition: box-shadow var(--transicao-media);
+}
+
+.perfil-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.perfil-nome {
+  font-family: var(--fonte-display);
+  font-size: var(--texto-xl);
+  font-weight: 800;
+  color: var(--cor-texto-principal);
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color var(--transicao-media);
+}
+
+.perfil-papel {
+  font-size: var(--texto-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--cor-marca-primaria);
+  transition: color var(--transicao-media);
+}
+
+.perfil-cpf {
+  font-size: var(--texto-xs);
+  color: var(--cor-texto-terciario);
+  font-variant-numeric: tabular-nums;
+  transition: color var(--transicao-media);
+}
+
+.perfil-card {
+  background-color: var(--cor-superfice);
+  border: 1px solid var(--cor-borda-sutil);
+  border-radius: var(--raio-lg);
+  padding: var(--esp-2) var(--esp-5);
+  box-shadow: var(--sombra-sutil);
+  transition:
+    background-color var(--transicao-media),
+    border-color var(--transicao-media);
+}
+
+.perfil-card-linha {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-3);
+  padding: var(--esp-4) 0;
+  border-bottom: 1px solid var(--cor-borda-sutil);
+  transition: border-color var(--transicao-media);
+}
+
+.perfil-card-linha:last-child { border-bottom: none; }
+
+.perfil-card-rotulo {
+  font-size: var(--texto-xs);
+  font-weight: 600;
+  color: var(--cor-texto-terciario);
+  white-space: nowrap;
+  transition: color var(--transicao-media);
+}
+
+.perfil-card-valor {
+  font-size: var(--texto-sm);
+  font-weight: 500;
+  color: var(--cor-texto-principal);
+  text-align: right;
+  transition: color var(--transicao-media);
+}
+
+/* Ações rápidas (botões grandes) */
+.perfil-acoes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-3);
+}
+
+.perfil-acao-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-4);
+  width: 100%;
+  min-height: 64px;
+  padding: var(--esp-4) var(--esp-5);
+  background-color: var(--cor-superfice);
+  border: 1px solid var(--cor-borda-sutil);
+  border-radius: var(--raio-lg);
+  cursor: pointer;
+  text-align: left;
+  transition:
+    background-color var(--transicao-rapida),
+    border-color var(--transicao-rapida);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.perfil-acao-btn:hover {
+  background-color: var(--cor-hover);
+  border-color: var(--cor-marca-secundaria);
+}
+
+.perfil-acao-btn > svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  color: var(--cor-texto-terciario);
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.perfil-acao-icone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  background-color: var(--cor-marca-acento-soft);
+  color: var(--cor-marca-primaria);
+  border-radius: var(--raio-md);
+  transition:
+    background-color var(--transicao-media),
+    color var(--transicao-media);
+}
+
+.perfil-acao-icone svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.perfil-acao-icone-sair {
+  background-color: var(--cor-erro-bg);
+  color: var(--cor-erro);
+}
+
+.perfil-acao-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.perfil-acao-texto strong {
+  font-size: var(--texto-sm);
+  font-weight: 600;
+  color: var(--cor-texto-principal);
+  transition: color var(--transicao-media);
+}
+
+.perfil-acao-texto span {
+  font-size: var(--texto-xs);
+  color: var(--cor-texto-terciario);
+  transition: color var(--transicao-media);
+}
+
+.perfil-acao-sair .perfil-acao-texto strong {
+  color: var(--cor-erro);
+}
+
+.btn-confirmar-sair {
+  background-color: var(--cor-erro) !important;
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+  justify-content: center;
+}
+
+.btn-confirmar-sair svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+/* Histórico de participações */
+.hist-lista {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--cor-borda-sutil);
+  border-radius: var(--raio-lg);
+  overflow: hidden;
+  background-color: var(--cor-superfice);
+  box-shadow: var(--sombra-sutil);
+  transition:
+    background-color var(--transicao-media),
+    border-color var(--transicao-media);
+}
+
+.hist-item {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  align-items: center;
+  gap: var(--esp-3);
+  padding: var(--esp-3) var(--esp-5);
+  border-bottom: 1px solid var(--cor-borda-sutil);
+  transition:
+    background-color var(--transicao-rapida),
+    border-color var(--transicao-media);
+}
+
+.hist-item:last-child { border-bottom: none; }
+.hist-item:hover { background-color: var(--cor-hover); }
+
+.hist-item-passado { opacity: 0.7; }
+
+.hist-item-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hist-item-data .agenda-dia-num {
+  font-size: var(--texto-md);
+}
+
+.hist-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.hist-item-titulo {
+  font-size: var(--texto-sm);
+  font-weight: 600;
+  color: var(--cor-texto-principal);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color var(--transicao-media);
+}
+
+.hist-item-sub {
+  font-size: var(--texto-xs);
+  color: var(--cor-texto-terciario);
+  transition: color var(--transicao-media);
+}
+
+.hist-item-btn {
+  width: 32px;
+  height: 32px;
+  color: var(--cor-texto-terciario);
+}
+
+.hist-item-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.5;
+}
+
+
+/* ───────────────────────────────────────────────────────────────────
+   14. IMPRESSÃO — Escalas e Perfil
+─────────────────────────────────────────────────────────────────── */
+@media print {
+  .escalas-barra,
+  .escala-item-acao,
+  .perfil-acoes,
+  #nav-inferior {
+    display: none !important;
+  }
+
+  .escalas-lista,
+  .hist-lista {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+  }
+
+  .escala-lista-item,
+  .hist-item { break-inside: avoid; }
+}
